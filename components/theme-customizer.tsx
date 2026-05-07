@@ -22,16 +22,10 @@ type FontStyle = {
 
 const themeColors: ThemeColor[] = [
   { name: "Emerald",    primary: "oklch(0.72 0.19 145)", accent: "oklch(0.72 0.19 145)", ring: "oklch(0.72 0.19 145)", preview: "#22c55e" },
-  { name: "Iris",       primary: "oklch(0.62 0.22 265)", accent: "oklch(0.62 0.22 265)", ring: "oklch(0.62 0.22 265)", preview: "#6366f1" },
   { name: "Violet",     primary: "oklch(0.60 0.28 290)", accent: "oklch(0.60 0.28 290)", ring: "oklch(0.60 0.28 290)", preview: "#8b5cf6" },
-  { name: "Fuchsia",    primary: "oklch(0.65 0.30 325)", accent: "oklch(0.65 0.30 325)", ring: "oklch(0.65 0.30 325)", preview: "#d946ef" },
   { name: "Rose",       primary: "oklch(0.65 0.25 350)", accent: "oklch(0.65 0.25 350)", ring: "oklch(0.65 0.25 350)", preview: "#f43f5e" },
-  { name: "Crimson",    primary: "oklch(0.58 0.26 15)",  accent: "oklch(0.58 0.26 15)",  ring: "oklch(0.58 0.26 15)",  preview: "#e11d48" },
-  { name: "Tangerine",  primary: "oklch(0.72 0.20 45)",  accent: "oklch(0.72 0.20 45)",  ring: "oklch(0.72 0.20 45)",  preview: "#f97316" },
   { name: "Teal",       primary: "oklch(0.70 0.16 180)", accent: "oklch(0.70 0.16 180)", ring: "oklch(0.70 0.16 180)", preview: "#14b8a6" },
-  { name: "Cyan",       primary: "oklch(0.75 0.15 195)", accent: "oklch(0.75 0.15 195)", ring: "oklch(0.75 0.15 195)", preview: "#06b6d4" },
   { name: "Sky",        primary: "oklch(0.72 0.17 215)", accent: "oklch(0.72 0.17 215)", ring: "oklch(0.72 0.17 215)", preview: "#0ea5e9" },
-  { name: "Azure",      primary: "oklch(0.65 0.22 250)", accent: "oklch(0.65 0.22 250)", ring: "oklch(0.65 0.22 250)", preview: "#3b82f6" },
 ];
 
 const fontStyles: FontStyle[] = [
@@ -39,7 +33,7 @@ const fontStyles: FontStyle[] = [
   { name: "Playfair Display",   className: "font-serif",        variable: "Playfair Display",     preview: "Elegant & Editorial"      },
   { name: "Sora",               className: "font-sora",         variable: "Sora",                 preview: "Geometric & Friendly"     },
   { name: "DM Serif Display",   className: "font-dm-serif",     variable: "DM Serif Display",     preview: "High-contrast Serif"      },
-
+  { name: "Montserrat",         className: "font-montserrat",   variable: "Montserrat",           preview: "Modern & Versatile"       },
 ];
 
 type ThemeContextType = {

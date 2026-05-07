@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Playfair_Display, Fira_Code, Inter, Cormorant_Garamond } from "next/font/google";
+import { Space_Grotesk, Playfair_Display, Fira_Code, Inter, Cormorant_Garamond, Sora, DM_Serif_Display, Montserrat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -36,6 +37,25 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
+const sora = Sora({
+  subsets: ["latin"],
+  variable: "--font-sora",
+  display: "swap",
+});
+
+const dmSerif = DM_Serif_Display({
+  subsets: ["latin"],
+  variable: "--font-dm-serif",
+  weight: ["400"],
+  display: "swap",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Naveen Poolakuntla | Full Stack Developer",
   description:
@@ -54,7 +74,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#22c55e",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
 };
 
 export default function RootLayout({
@@ -65,10 +88,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${playfair.variable} ${firaCode.variable} ${inter.variable} ${cormorant.variable} bg-background`}
+      suppressHydrationWarning
+      className={`${spaceGrotesk.variable} ${playfair.variable} ${firaCode.variable} ${inter.variable} ${cormorant.variable} ${sora.variable} ${dmSerif.variable} ${montserrat.variable}`}
     >
-      <body className="font-sans antialiased">
-        {children}
+      <body className="font-sans antialiased min-h-screen bg-background text-foreground transition-colors duration-300">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </html>

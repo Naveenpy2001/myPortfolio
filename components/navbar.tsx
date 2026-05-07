@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -34,16 +35,16 @@ export function Navbar() {
       >
         <nav
           className={cn(
-          "flex items-center w-full max-w-4xl px-3 py-2.5 rounded-full",
-          "border transition-all duration-500 ",
-          isScrolled
-            ? "bg-background/60 backdrop-blur-2xl border-border/40 shadow-2xl shadow-primary/10 bg-white/10 border-white/20"
-            : "max-w-[1340px]  backdrop-blur-md border-white/0"
-        )}
+            "flex items-center w-full max-w-4xl px-3 py-2.5 rounded-full",
+            "border transition-all duration-500 ",
+            isScrolled
+              ? "bg-background/60 backdrop-blur-2xl border-border/40 shadow-2xl shadow-primary/10"
+              : "max-w-[1340px] backdrop-blur-md border-transparent"
+          )}
         >
           {/* Logo */}
           <a href="#"
-            className={`font-bold text-foreground text-${isScrolled ? "2xl" : "4xl"}   px-4 py-1.5 shrink-0 tracking-tight`}
+            className={`font-bold text-foreground text-${isScrolled ? "2xl" : "4xl"} px-4 py-1.5 shrink-0 tracking-tight transition-all`}
           >
             NP<span className="text-primary">.</span>
           </a>  
@@ -63,9 +64,9 @@ export function Navbar() {
 
           {/* Desktop CTA buttons */}
           <div className="hidden md:flex items-center gap-2 ml-3 shrink-0" >
-
+            <ThemeToggle />
             <Button size="sm"
-              className="rounded-full bg-foreground text-background hover:bg-foreground/90 text-sm"
+              className="rounded-full bg-primary text-primary-foreground hover:opacity-90 text-sm"
               asChild
             >
               <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
@@ -75,17 +76,20 @@ export function Navbar() {
             </Button>
           </div>
 
-          {/* Mobile toggle */}
-          <Button variant="ghost" size="icon"
-            className="md:hidden ml-auto rounded-full w-10 h-10"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen
-              ? <X className="w-5 h-5" />
-              : <Menu className="w-5 h-5" />
-            }
-          </Button>
+          {/* Mobile Actions */}
+          <div className="md:hidden ml-auto flex items-center gap-2">
+            <ThemeToggle />
+            <Button variant="ghost" size="icon"
+              className="rounded-full w-10 h-10"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen
+                ? <X className="w-5 h-5" />
+                : <Menu className="w-5 h-5" />
+              }
+            </Button>
+          </div>
         </nav>
       </header>
 
@@ -123,9 +127,8 @@ export function Navbar() {
               transition={{ delay: 0.32 }}
               className="flex flex-col gap-3 mt-10"
             >
-
               <Button size="lg"
-                className="rounded-full w-full text-base h-14 bg-foreground text-background hover:bg-foreground/90"
+                className="rounded-full w-full text-base h-14 bg-primary text-primary-foreground hover:opacity-90"
                 asChild
               >
                 <a href="/resume.pdf" target="_blank">
