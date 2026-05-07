@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail, Code2, Layers, Database, Terminal } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RotatingText } from "@/components/rotating-text";
 
@@ -39,7 +39,7 @@ export function HeroSection() {
       </div>
 
       <motion.div style={{ y, opacity, scale }} className="relative z-10 max-w-7xl mx-auto w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-[1fr_1.1fr] gap-0 items-center">
           {/* Left Content */}
           <div>
             <motion.div
@@ -174,7 +174,7 @@ export function HeroSection() {
             >
               {[
                 { href: "https://github.com/Naveenpy2001", icon: Github, label: "GitHub" },
-                { href: "https://linkedin.com/in/naveen-kumar", icon: Linkedin, label: "LinkedIn" },
+                { href: "https://www.linkedin.com/in/naveen-kumar-aaa985252/", icon: Linkedin, label: "LinkedIn" },
                 { href: "mailto:naveenpoolakuntla09@gmail.com", icon: Mail, label: "Email" },
               ].map(({ href, icon: Icon, label }) => (
                 <motion.a

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const navLinks = [
   { label: "Experience", href: "#experience" },
@@ -15,198 +16,124 @@ const navLinks = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [scrollDirection, setScrollDirection] = useState<"up" | "down">("up");
-  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > 100) {
-        setIsScrolled(true);
-        if (currentScrollY < lastScrollY) {
-          setScrollDirection("up");
-        } else {
-          setScrollDirection("down");
-        }
-      } else {
-        setIsScrolled(false);
-        setScrollDirection("up");
-      }
-      
-      setLastScrollY(currentScrollY);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
-
-  const isCompact = isScrolled && scrollDirection === "up";
+  }, []);
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ 
-          y: scrollDirection === "down" && isScrolled ? -100 : 0,
-        }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        className={`fixed z-50 transition-all duration-500 ${
-          isCompact
-            ? "top-4 left-1/2 -translate-x-1/2 w-auto"
-            : "top-0 left-0 right-0"
-        }`}
+      {/* ── Header ── */}
+      <header
+        className={cn(
+          "fixed top-4 inset-x-0 z-50 flex justify-center transition-all duration-500",
+          isScrolled ? "px-6 sm:px-8 pt-3 pb-3" : "px-0 pt-0 pb-0"
+        )}
       >
-        <motion.nav
-          layout
-          className={`flex items-center justify-between transition-all duration-500 ${
-            isCompact
-              ? "bg-card/90 backdrop-blur-xl border border-border rounded-full px-2 py-2 shadow-xl shadow-background/50"
-              : "max-w-7xl mx-auto px-6 md:px-12 lg:px-24 h-20 bg-transparent"
-          }`}
+        <nav
+          className={cn(
+          "flex items-center w-full max-w-4xl px-3 py-2.5 rounded-full",
+          "border transition-all duration-500 ",
+          isScrolled
+            ? "bg-background/60 backdrop-blur-2xl border-border/40 shadow-2xl shadow-primary/10 bg-white/10 border-white/20"
+            : "max-w-[1340px]  backdrop-blur-md border-white/0"
+        )}
         >
           {/* Logo */}
-          <motion.a
-            href="#"
-            layout
-            className={`font-bold text-foreground hover:text-primary transition-colors ${
-              isCompact ? "text-lg px-4" : "text-2xl"
-            }`}
+          <a href="#"
+            className={`font-bold text-foreground text-${isScrolled ? "2xl" : "4xl"}   px-4 py-1.5 shrink-0 tracking-tight`}
           >
             NP<span className="text-primary">.</span>
-          </motion.a>
+          </a>  
 
-          {/* Desktop Nav - Full */}
-          <AnimatePresence mode="wait">
-            {!isCompact ? (
-              <motion.div
-                key="full-nav"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="hidden md:flex items-center gap-8"
+          {/* Desktop nav links — right-aligned */}
+          <div className="hidden md:flex items-center gap-1 ml-auto">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-all font-medium px-4 py-2 rounded-full text-sm"
               >
-                {navLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className="text-muted-foreground hover:text-primary transition-colors font-medium"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-                <Button
-                  asChild
-                  className="bg-primary text-primary-foreground hover:bg-primary/90"
-                >
-                  <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-                    <Download className="w-4 h-4 mr-2" />
-                    Resume
-                  </a>
-                </Button>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="compact-nav"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="hidden md:flex items-center gap-1"
-              >
-                {navLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className="text-muted-foreground hover:text-primary hover:bg-secondary/50 transition-all font-medium px-4 py-2 rounded-full text-sm"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-                <Button
-                  asChild
-                  size="sm"
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full ml-2"
-                >
-                  <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-                    <Download className="w-4 h-4" />
-                  </a>
-                </Button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                {link.label}
+              </a>
+            ))}
+          </div>
 
-          {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className={`md:hidden ${isCompact ? "h-10 w-10" : ""}`}
+          {/* Desktop CTA buttons */}
+          <div className="hidden md:flex items-center gap-2 ml-3 shrink-0" >
+
+            <Button size="sm"
+              className="rounded-full bg-foreground text-background hover:bg-foreground/90 text-sm"
+              asChild
+            >
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+                <Download className="w-3.5 h-3.5 mr-1.5 " />
+                Resume
+              </a>
+            </Button>
+          </div>
+
+          {/* Mobile toggle */}
+          <Button variant="ghost" size="icon"
+            className="md:hidden ml-auto rounded-full w-10 h-10"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? (
-              <X className="w-5 h-5" />
-            ) : (
-              <Menu className="w-5 h-5" />
-            )}
+            {isMobileMenuOpen
+              ? <X className="w-5 h-5" />
+              : <Menu className="w-5 h-5" />
+            }
           </Button>
-        </motion.nav>
-      </motion.header>
+        </nav>
+      </header>
 
-      {/* Mobile Menu */}
+      {/* ── Mobile fullscreen menu ── */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-background pt-24 px-6 md:hidden"
+            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl pt-24 px-8 md:hidden flex flex-col"
           >
-            <nav className="flex flex-col gap-6">
-              {navLinks.map((link, index) => (
+            {/* Nav links */}
+            <nav className="flex flex-col gap-2">
+              {navLinks.map((link, i) => (
                 <motion.a
                   key={link.label}
                   href={link.href}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  transition={{ delay: i * 0.07 }}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-4xl font-bold text-foreground hover:text-primary transition-colors"
+                  className="text-4xl xs:text-5xl font-bold text-foreground hover:text-primary transition-colors py-2"
                 >
                   {link.label}
                 </motion.a>
               ))}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, delay: navLinks.length * 0.1 }}
-              >
-                <Button
-                  asChild
-                  size="lg"
-                  className="w-full mt-4 bg-primary text-primary-foreground"
-                >
-                  <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-                    <Download className="w-5 h-5 mr-2" />
-                    Download Resume
-                  </a>
-                </Button>
-              </motion.div>
             </nav>
 
-            {/* Mobile menu decorative elements */}
+            {/* Mobile action buttons — always visible */}
             <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="absolute bottom-20 right-10 w-32 h-32 border border-primary/20 rounded-full"
-            />
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="absolute bottom-32 right-20 w-16 h-16 bg-primary/10 rounded-full"
-            />
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.32 }}
+              className="flex flex-col gap-3 mt-10"
+            >
+
+              <Button size="lg"
+                className="rounded-full w-full text-base h-14 bg-foreground text-background hover:bg-foreground/90"
+                asChild
+              >
+                <a href="/resume.pdf" target="_blank">
+                  <Download className="w-5 h-5 mr-2" />
+                  Download Resume
+                </a>
+              </Button>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

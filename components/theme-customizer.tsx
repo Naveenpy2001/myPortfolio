@@ -28,14 +28,10 @@ const themeColors: ThemeColor[] = [
   { name: "Rose",       primary: "oklch(0.65 0.25 350)", accent: "oklch(0.65 0.25 350)", ring: "oklch(0.65 0.25 350)", preview: "#f43f5e" },
   { name: "Crimson",    primary: "oklch(0.58 0.26 15)",  accent: "oklch(0.58 0.26 15)",  ring: "oklch(0.58 0.26 15)",  preview: "#e11d48" },
   { name: "Tangerine",  primary: "oklch(0.72 0.20 45)",  accent: "oklch(0.72 0.20 45)",  ring: "oklch(0.72 0.20 45)",  preview: "#f97316" },
-  { name: "Amber",      primary: "oklch(0.78 0.18 70)",  accent: "oklch(0.78 0.18 70)",  ring: "oklch(0.78 0.18 70)",  preview: "#f59e0b" },
-  { name: "Lemon",      primary: "oklch(0.80 0.16 85)",  accent: "oklch(0.80 0.16 85)",  ring: "oklch(0.80 0.16 85)",  preview: "#eab308" },
-  { name: "Lime",       primary: "oklch(0.76 0.22 125)", accent: "oklch(0.76 0.22 125)", ring: "oklch(0.76 0.22 125)", preview: "#84cc16" },
   { name: "Teal",       primary: "oklch(0.70 0.16 180)", accent: "oklch(0.70 0.16 180)", ring: "oklch(0.70 0.16 180)", preview: "#14b8a6" },
   { name: "Cyan",       primary: "oklch(0.75 0.15 195)", accent: "oklch(0.75 0.15 195)", ring: "oklch(0.75 0.15 195)", preview: "#06b6d4" },
   { name: "Sky",        primary: "oklch(0.72 0.17 215)", accent: "oklch(0.72 0.17 215)", ring: "oklch(0.72 0.17 215)", preview: "#0ea5e9" },
   { name: "Azure",      primary: "oklch(0.65 0.22 250)", accent: "oklch(0.65 0.22 250)", ring: "oklch(0.65 0.22 250)", preview: "#3b82f6" },
-  { name: "Indigo",     primary: "oklch(0.58 0.24 270)", accent: "oklch(0.58 0.24 270)", ring: "oklch(0.58 0.24 270)", preview: "#4f46e5" },
 ];
 
 const fontStyles: FontStyle[] = [
@@ -43,10 +39,7 @@ const fontStyles: FontStyle[] = [
   { name: "Playfair Display",   className: "font-serif",        variable: "Playfair Display",     preview: "Elegant & Editorial"      },
   { name: "Sora",               className: "font-sora",         variable: "Sora",                 preview: "Geometric & Friendly"     },
   { name: "DM Serif Display",   className: "font-dm-serif",     variable: "DM Serif Display",     preview: "High-contrast Serif"      },
-  { name: "Space Grotesk",      className: "font-space",        variable: "Space Grotesk",        preview: "Technical & Precise"      },
-  { name: "Cormorant Garamond", className: "font-cormorant",    variable: "Cormorant Garamond",   preview: "Luxe & Refined"           },
-  { name: "Outfit",             className: "font-outfit",       variable: "Outfit",               preview: "Rounded & Approachable"   },
-  { name: "Libre Baskerville",  className: "font-baskerville",  variable: "Libre Baskerville",    preview: "Classic & Authoritative"  },
+
 ];
 
 type ThemeContextType = {
